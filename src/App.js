@@ -1,27 +1,29 @@
 import React, { useState } from "react";
 import {
   View,
-  //   Text,
   SafeAreaView,
   StyleSheet,
   StatusBar,
   ScrollView,
   TouchableOpacity,
-  //   Picker,
 } from "react-native";
 import Text from "./components/Text";
 import DatePicker from "./components/DatePicker";
-import Picker from "./components/Picker";
 import Header from "./Header";
 import Result from "./Result";
 import LinearGradient from "react-native-linear-gradient";
 import FeatherIcon from "react-native-vector-icons/Feather";
 import moment from "moment";
 import { months } from "./constants";
+import { calculateDifference } from "./helper";
 const date = new Date();
 
 const App = () => {
-  const [userDate, setUserDate] = useState({ year: "", month: "", day: "" });
+  const [userDate, setUserDate] = useState({
+    year: "",
+    month: "",
+    day: "",
+  });
   const [today, setToday] = useState({
     year: date.getFullYear(),
     month: months[date.getMonth()],
@@ -35,7 +37,7 @@ const App = () => {
     day: "",
   });
 
-  const calculateDifference = () => {
+  const calculateAge = () => {
     let mToday = moment(today);
     let mUserDate = moment(userDate);
     if (!userDate.year || !userDate.month || !userDate.day) {
@@ -43,10 +45,15 @@ const App = () => {
         ...result,
         message: "The date you selected looks incomplete",
       });
+      return;
     }
-    let difference = mToday.diff(mUserDate, "year", "month", "days");
-
+    let difference = calculateDifference(userDate, today);
     console.log({ difference });
+    setResult({
+      ...difference.age,
+      message: difference.message,
+      resultSet: !difference.error,
+    });
   };
 
   return (
@@ -121,7 +128,7 @@ const App = () => {
                 */}
                 <View style={styles.calculateDifference}>
                   <TouchableOpacity
-                    onPress={calculateDifference}
+                    onPress={calculateAge}
                     style={styles.calculateButton}>
                     <Text style={styles.calculateButtonText}>CALCULATE</Text>
                   </TouchableOpacity>
