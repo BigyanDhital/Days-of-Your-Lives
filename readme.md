@@ -17,4 +17,6 @@ $ react-native run-ios
 
 ### Screenshot
 
-Coming soon!
+|                          Age Calculator                           |                            Date Picker                            |
+| :---------------------------------------------------------------: | :---------------------------------------------------------------: |
+| ![Screenshot !](https://i.ibb.co/RHMW2FG/Days-Of-Your-Lives1.png) | ![Screenshot 2](https://i.ibb.co/4S0tN0V/Days-Of-Your-Lives2.png) |

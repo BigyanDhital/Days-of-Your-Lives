@@ -36,10 +36,9 @@ const App = () => {
     month: "",
     day: "",
   });
+  const [happyMessage, setHappyMessage] = useState(false);
 
   const calculateAge = () => {
-    let mToday = moment(today);
-    let mUserDate = moment(userDate);
     if (!userDate.year || !userDate.month || !userDate.day) {
       setResult({
         ...result,
@@ -102,11 +101,14 @@ const App = () => {
             </ScrollView>
             <View>
               <TouchableOpacity
-                style={{ alignSelf: "center" }}
-                onPress={() => null}>
-                <FeatherIcon name="smile" color="#fff" size={17} />
+                onPress={() => setHappyMessage(!happyMessage)}
+                style={{ alignSelf: "center" }}>
+                {happyMessage ? (
+                  <Text>@bigyandhital</Text>
+                ) : (
+                  <FeatherIcon name="smile" color="#fff" size={17} />
+                )}
               </TouchableOpacity>
-              {/* <Text style={styles.message}>:)</Text> */}
             </View>
           </View>
         </SafeAreaView>
