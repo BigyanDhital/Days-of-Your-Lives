@@ -26,6 +26,7 @@ const Picker = props => {
       <PickerModal
         visible={isOpen}
         title={props.placeHolder}
+        selectedValue={props.selectedValue}
         close={() => setIsOpen(false)}
         options={props.options}
         onValueChange={props.onValueChange}
