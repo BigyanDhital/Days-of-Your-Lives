@@ -5,6 +5,7 @@ import Text from "./components/Text";
 
 const Result = ({ result }) => {
   const messageAnim = new Animated.Value(0);
+  const resultAnim = new Animated.Value(0);
   useEffect(() => {
     messageAnim.setValue(0);
     Animated.timing(messageAnim, {
@@ -14,6 +15,15 @@ const Result = ({ result }) => {
     }).start();
   }, [result.message]);
 
+  useEffect(() => {
+    resultAnim.setValue(0);
+    Animated.timing(resultAnim, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  }, [result.year || result.month || result.day]);
+
   const rotate = messageAnim.interpolate({
     inputRange: [0, 1],
     outputRange: ["180deg", "360deg"],
@@ -21,6 +31,19 @@ const Result = ({ result }) => {
   const scale = messageAnim.interpolate({
     inputRange: [0, 1],
     outputRange: [0.8, 1],
+  });
+
+  const opacity = resultAnim.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [0, 0.8, 1],
+  });
+  const translateY = resultAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [-20, 0],
+  });
+  const rotateResult = resultAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["180deg", "360deg"],
   });
   if (!result.resultSet)
     return (
@@ -48,22 +71,31 @@ const Result = ({ result }) => {
 
       <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 10 }}>
         <View style={styles.resultSection}>
-          <View style={styles.resultSectionInner}>
-            <Text style={styles.resultNumber}>{padZeroes(result.year)}</Text>
+          <Animated.View style={[styles.resultSectionInner]}>
+            <Animated.View
+              style={{ opacity, transform: [{ rotateY: rotateResult }] }}>
+              <Text style={styles.resultNumber}>{padZeroes(result.year)}</Text>
+            </Animated.View>
             <Text style={styles.resultLabel}>Years</Text>
-          </View>
+          </Animated.View>
         </View>
         <View style={styles.resultSection}>
-          <View style={styles.resultSectionInner}>
-            <Text style={styles.resultNumber}>{padZeroes(result.month)}</Text>
+          <Animated.View style={[styles.resultSectionInner]}>
+            <Animated.View
+              style={{ opacity, transform: [{ rotateY: rotateResult }] }}>
+              <Text style={styles.resultNumber}>{padZeroes(result.month)}</Text>
+            </Animated.View>
             <Text style={styles.resultLabel}>Months</Text>
-          </View>
+          </Animated.View>
         </View>
         <View style={styles.resultSection}>
-          <View style={styles.resultSectionInner}>
-            <Text style={styles.resultNumber}>{padZeroes(result.day)}</Text>
+          <Animated.View style={[styles.resultSectionInner]}>
+            <Animated.View
+              style={{ opacity, transform: [{ rotateY: rotateResult }] }}>
+              <Text style={styles.resultNumber}>{padZeroes(result.day)}</Text>
+            </Animated.View>
             <Text style={styles.resultLabel}>Days</Text>
-          </View>
+          </Animated.View>
         </View>
       </View>
     </View>

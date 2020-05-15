@@ -75,7 +75,7 @@ const App = () => {
               </View>
               <View style={styles.section}>
                 <DatePicker
-                  label="YOUR BIRTHDAY"
+                  label="Your birthday"
                   date={userDate}
                   onValueChange={date => {
                     console.log("Selected date user ", date);
@@ -83,7 +83,7 @@ const App = () => {
                   }}
                 />
                 <DatePicker
-                  label="TODAY"
+                  label="Today"
                   date={today}
                   onValueChange={date => {
                     console.log("Selected date today ", date);
@@ -91,41 +91,6 @@ const App = () => {
                   }}
                 />
 
-                {/* <View style={styles.inputContainer}>
-                  <Text style={styles.dateSelectLabel}>TODAY</Text>
-                  <View style={styles.inputDatesContainer}>
-                    <Picker
-                      style={styles.dropDown}
-                      placeHolder="Year"
-                      selectedValue={today.year}
-                      options={years}
-                      onValueChange={value =>
-                        setToday({ ...today, year: value })
-                      }
-                    />
-
-                    <Picker
-                      style={styles.dropDown}
-                      placeHolder="Month"
-                      selectedValue={today.month}
-                      onValueChange={value =>
-                        setToday({ ...today, month: value })
-                      }
-                      options={months}
-                    />
-
-                    <Picker
-                      style={styles.dropDown}
-                      placeHolder="Day"
-                      selectedValue={today.day}
-                      options={today.dayOptions}
-                      onValueChange={value =>
-                        setToday({ ...today, day: value })
-                      }
-                    />
-                  </View>
-                </View>
-                */}
                 <View style={styles.calculateDifference}>
                   <TouchableOpacity
                     onPress={calculateAge}

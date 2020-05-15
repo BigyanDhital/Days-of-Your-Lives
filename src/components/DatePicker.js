@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import Picker from "./Picker";
 import Text from "./Text";
 import moment from "moment";
@@ -35,10 +35,24 @@ const DatePicker = props => {
     setDate({ ...date, [name]: value });
     props.onValueChange({ ...date, [name]: value });
   };
+  const resetToday = () => {
+    let today = new Date();
+    let data = {
+      year: today.getFullYear().toString(),
+      month: today.getMonth().toString(),
+      day: today.getDate().toString(),
+    };
+    props.onValueChange({ data });
+  };
 
   return (
     <View style={styles.inputContainer}>
-      <Text style={styles.dateSelectLabel}>{props.label}</Text>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <Text style={styles.dateSelectLabel}>{props.label}</Text>
+        {/* <TouchableOpacity onPress={resetToday}>
+          <Text style={styles.dateSelectLabel}>RESET</Text>
+        </TouchableOpacity> */}
+      </View>
       <View style={styles.inputDatesContainer}>
         <Picker
           style={styles.dropDown}
@@ -89,6 +103,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   dateSelectLabel: {
+    textTransform: "uppercase",
     textAlign: "left",
     fontSize: 12,
     fontWeight: "600",
